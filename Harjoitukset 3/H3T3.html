@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+<style>
+.taulukko{border: 1px solid black; width: 10%}
+</style>
+</head>
+<body>
+<table class="taulukko">
+  <tr>
+    <th>T1</th>
+    <th>T2</th>
+    <th>T3</th>
+    <th>T4</th>
+  </tr>
+  <tr>
+    <td><input type="text" id="T1"></td>
+    <td><input type="text" id="T2"></td>
+    <td><input type="text" id="T3"></td>
+    <td><input type="text" id="T4"></td>
+  </tr>
+</table>
+
+<p>Pistemäärä (summa): <span id="Pistemäärä"></span></p>
+<p>Arvosana: <span id="arvosana"></span></p>
+
+<script>
+//funktio joka lisää annetut pisteet inputkentästä, tarkistaa onko arvot kelvollisia,
+//sekä laskee ja tulpostaa pisteiden summat ja määrittelee arvosanan.
+function laske() {
+
+let tehtava1 = parseFloat(document.getElementById('T1').value);
+let tehtava2 = parseFloat(document.getElementById('T2').value);
+let tehtava3 = parseFloat(document.getElementById('T3').value);
+let tehtava4 = parseFloat(document.getElementById('T4').value);
+
+if (isNaN(tehtava1) || isNaN(tehtava2) || isNaN(tehtava3) || isNaN(tehtava4) ||
+    tehtava1 < 0 || tehtava1 > 6 || tehtava2 < 0 || tehtava2 > 6 ||
+    tehtava3 < 0 || tehtava3 > 6 || tehtava4 < 0 || tehtava4 > 6) {
+    document.getElementById('Pistemäärä').innerText = 'VIRHE!';
+    document.getElementById('arvosana').innerText = 'VIRHE!';
+    } else {
+      let pisteet = tehtava1 + tehtava2 + tehtava3 + tehtava4;
+      document.getElementById('Pistemäärä').innerText = pisteet;
+
+      let arvosana;
+      if (pisteet >= 0 && pisteet <= 12) {
+        arvosana = 0;
+      } else if (pisteet >= 13 && pisteet <= 15) {
+        arvosana = 1;
+      } else if (pisteet >= 16 && pisteet <= 17) {
+        arvosana = 2;
+      } else if (pisteet >= 18 && pisteet <= 19) {
+        arvosana = 3;
+      } else if (pisteet >= 20 && pisteet <= 21) {
+        arvosana = 4;
+      } else if (pisteet >= 22 && pisteet <= 24) {
+        arvosana = 5;
+      }
+
+      document.getElementById('arvosana').innerText = arvosana;
+}
+}
+document.getElementById('T1').addEventListener('blur', laske);
+document.getElementById('T2').addEventListener('blur', laske);
+document.getElementById('T3').addEventListener('blur', laske);
+document.getElementById('T4').addEventListener('blur', laske);
+</script>
+
+</body>
+</html>

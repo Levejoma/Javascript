@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .tulosalue {
+      width: 300px;
+      height: 200px;
+      border: 1px solid #000;
+      margin-top: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<label for="varivalinta">Valitse juhlaväri:</label><br>
+<select id="varivalinta">
+  <option value="#ff0404">Punainen</option>
+  <option value="#04ff11">Vihreä</option>
+  <option value="#1d04ff">Sininen</option>
+</select>
+
+<div>
+<label for="Juhla">Mikä juhla?</label><br>
+<input type="text" id="Juhla"></input>
+</div>
+
+<div id="tulosalue" class="tulosalue"></div>
+
+<button id="varivaihto">Vaihda valittu taustaväri</button>
+
+<script>
+//Odottaa, kunnes DOM on täysin ladattu, ennen kuin suoritetaan skripti.
+  document.addEventListener('DOMContentLoaded', function () {
+    // Haetaan tarvittavat HTML-elementit.
+    let varivalinta = document.getElementById('varivalinta');
+    let Juhla = document.getElementById('Juhla');
+    let tulosalue = document.getElementById('tulosalue');
+    let varivaihto = document.getElementById('varivaihto');
+
+//Lisätään kuuntelija värimuutosten valintaan ja juhlan syöttökenttään.
+    varivalinta.addEventListener('change', function () {
+//Päivitetään tulosalue, kun väri valitaan.
+      tulosalue.innerHTML = `
+        <p>Valittu väri: ${varivalinta.value}</p>
+        <p>${Juhla.value}</p>
+      `;
+    });
+//Päivitetään tulosalue, kun juhlan nimeä kirjoitetaan.
+    Juhla.addEventListener('input', function () {
+      tulosalue.innerHTML = `
+        <p>Valittu väri: ${varivalinta.value}</p>
+        <p>${Juhla.value}</p>
+      `;
+    });
+
+ //Lisätään kuuntelija nappiin, joka vaihtaa valitun taustavärin
+    varivaihto.addEventListener('click', function () {
+      tulosalue.style.backgroundColor = varivalinta.value;
+    });
+  });
+</script>
+
+</body>
+</html>

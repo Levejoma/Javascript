@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tulosta tasoitukset</title>
+
+<script>
+var hcpdata = [{ "name": "Ari", "hcp": 54 },
+               { "name": "Pasi", "hcp": 5 },
+               { "name": "Seppo", "hcp": 20 }];
+
+//funktio, joka hakee ja tulostaa pelaajien tasoitukset listana
+function result() {
+
+let getUl = document.getElementById("hcplist");
+//tarkistetaan onko lista jo luotu, jos on niin mitään ei tulosteta
+if (getUl.children.length === 0) {
+for (let i = 0; i < hcpdata.length; i++) {
+let tulostus = document.createElement("li");
+tulostus.textContent = hcpdata[i].name + " " + hcpdata[i].hcp;
+getUl.appendChild(tulostus);
+}
+}
+}
+</script>
+
+</head>
+<body>
+        <button onclick="result() ">Tulosta tasoitukset</button>
+	<ul id="hcplist"></ul>
+</body>
+</html>

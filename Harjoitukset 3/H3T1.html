@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<tr>
+<a id="1" href="#" onclick="changeImage('kuva1.jpg')">Kuva1</a>
+| <a id="2" href="#" onclick="changeImage('kuva2.jpg')">Kuva2</a>
+| <a id="3" href="#" onclick="changeImage('kuva3.jpg')">Kuva3</a>
+</tr><br>
+
+<img id="show" src="kuva1.jpg" width="300" height="300">
+<script>
+  function changeImage(imageName) {
+    document.getElementById("show").src = imageName;
+  }
+
+</script> 
+</body>
+</html>

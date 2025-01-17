@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<h2>Simple ToDo</h2>
+<p>ToDo:</p>
+<input type="text" id="tehtavaInput">
+<br><br>
+<button id="uusitehtava">Lisää</button>
+<button id="tyhjenna">Tyhjää lista</button>
+<ul id="lista"></ul>
+
+<script>
+//Odottaa, kunnes DOM on täysin ladattu, ennen kuin suoritetaan skripti.
+  document.addEventListener('DOMContentLoaded', function () {
+//Haetaan tarvittavat HTML-elementit
+    let uusitehtava = document.getElementById('uusitehtava');
+    let tyhjenna = document.getElementById('tyhjenna');
+    let tehtavaInput = document.getElementById('tehtavaInput');
+    let lista = document.getElementById('lista');
+
+// Lisätään tapahtumakuuntelijat nappeihin ja tehtävälistalle, sekä luetaan syötetty tehtävä
+    uusitehtava.addEventListener('click', function () {
+      let tehtava = tehtavaInput.value;
+        //luodaan li-elementti tehtävästä ja tyhjennetään syöttökenttä
+        let uusiTehtava = document.createElement('li');
+        uusiTehtava.textContent = tehtava;
+        lista.appendChild(uusiTehtava);
+        tehtavaInput.value = '';
+      }
+    );
+//funktio ja tapahtumakuuntelijat, jotka poistavat tehtävälistan
+    tyhjenna.addEventListener('click', function () {
+      lista.innerHTML = '';
+    });
+//funktio ja tapahtumakuuntelijat, jotka poistavat tehtävän listasta klikkaamalla
+    lista.addEventListener('click', function (event) {
+        lista.removeChild(event.target);
+    });
+  });
+</script>
+
+</body>
+</html>

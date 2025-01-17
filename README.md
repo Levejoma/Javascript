@@ -1,2 +1,3 @@
 # Javascript
-Here's university projects made with javascript.
+Here's some of my university projects made with javascript.
+

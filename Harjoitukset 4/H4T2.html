@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Document</title>
+<style>
+        #houses {
+            width: 600px;
+            height: 800px;
+            text-align: left;
+            overflow: auto;
+            margin: 10px;
+          }
+          
+          .houseContainer {
+            display: block;
+            border: 1px solid grey;
+            width: 570px;
+            height: 165px;
+            font-family: sans-serif;
+            font-size: 12px;
+            margin: 2px;
+            padding: 2px;
+          }
+          
+          .houseImage {
+            width: 225px;
+            height: 160px;
+            float: left;
+            margin: 2px;
+          }
+          
+          p.header {
+            font-size: 14px;
+            font-weight: bold;
+          }
+          
+          p.text {
+            font-style: italic;
+            font-size: 10px;
+          }
+        </style>         
+    </head>
+
+<body>
+
+<input type="checkbox" id="koko">alle 200m²</input><br>
+<input type="checkbox" id="hinta">alle 1 000 000 euroa</input><br>
+<div id="houses"></div>        
+        
+
+<script>
+
+
+//Funktio hakee talotiedot JSON-tiedostosta.
+async function getHouses() {
+    let url = "talotiedot.json"
+    try {
+        let res = await fetch(url)
+        return await res.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+//Funktio, jolla renderöidään talotiedot sivulle
+async function renderHouses() {
+    let houses = await getHouses()
+    console.log(houses)
+
+//haetaan koko ja hinta checkboxit sivulta ja ajetaan
+//suodattimet jos niitä on painettu
+    koko = document.getElementById("koko")
+    hinta = document.getElementById("hinta")
+    koko.addEventListener("change", () => renderHouses())
+    hinta.addEventListener("change", () => renderHouses())
+    if (koko.checked) {
+        houses = vaihdakoko(houses)
+    }
+
+    if (hinta.checked) {
+        houses = vaihdahinta(houses)
+    }
+//Haetaan Div-elementti, johon talotiedot lisätään
+    let house_div = document.getElementById("houses")
+
+    //lataa containerin uudestaan suodatuksen jälkeen
+    house_div.innerHTML = ""
+
+//Käydään läpi jokainen talo ja luodaan sille HTML-elementit
+    houses.forEach(house => {
+        
+        house_container = document.createElement("div")
+        house_container.className = "houseContainer"
+
+        let image = document.createElement("img")
+        image.src = house.image
+        image.className = "houseImage"
+
+        let header = document.createElement("p")
+        header.className = "header"
+        header.innerHTML = house.address
+
+        let size = document.createElement("p")
+        size.className = "size"
+        size.innerHTML = house.size + "m²"
+
+        let text = document.createElement("p")
+        text.className = "text"
+        text.innerHTML = house.text
+
+        let price = document.createElement("p")
+        price.className = "price"
+        price.innerHTML = new Intl.NumberFormat('fi-FI').format(house.price) + " euroa"
+
+        house_container.appendChild(image)
+        house_container.appendChild(header)
+        house_container.appendChild(size)
+        house_container.appendChild(text)
+        house_container.appendChild(price)
+
+        house_div.appendChild(house_container)
+    });
+}
+//Sudoatinfunktiot alle miljoonan euron ja toinen alle 200 neliön taloille
+function vaihdahinta(houses) {
+    return houses.filter(house => house.price < 1000000)
+}
+function vaihdakoko(houses) {
+    return houses.filter(house => house.size < 200)
+}
+
+
+renderHouses()
+</script> 
+</body>
+</html>
